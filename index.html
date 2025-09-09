@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepQ-AI Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">DeepQ-AI Dashboard</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#" id="loginBtn">Login</a>
+                <a class="nav-link d-none" href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" value="admin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" value="admin123">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="container-fluid mt-4" id="dashboard" style="display: none;">
+        <!-- Filters -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Filters</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="countrySelect" class="form-label">Countries</label>
+                                <select class="form-select" id="countrySelect" multiple>
+                                    <option value="US">United States</option>
+                                    <option value="CN">China</option>
+                                    <option value="IN">India</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="JP">Japan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="startYear" class="form-label">Start Year</label>
+                                <input type="number" class="form-control" id="startYear" value="2018" min="2010" max="2023">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="endYear" class="form-label">End Year</label>
+                                <input type="number" class="form-control" id="endYear" value="2022" min="2010" max="2023">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button class="btn btn-success d-block w-100" onclick="updateCharts()">Update Charts</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row">
+            <!-- GDP Chart -->
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">GDP Trends (Line Chart)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="gdpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Population Chart -->
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Population Comparison (Bar Chart)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="populationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CO2 Emissions Chart -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">CO2 Emissions (Area Chart)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="co2Chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="container mt-5" id="welcomeScreen">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="display-4">DeepQ-AI Dashboard</h1>
+                <p class="lead">Interactive World Bank Data Visualization</p>
+                <p>Please login to access the dashboard</p>
+                <p><strong>Demo Credentials:</strong> admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
